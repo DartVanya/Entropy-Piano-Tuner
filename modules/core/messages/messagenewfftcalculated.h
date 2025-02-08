@@ -28,7 +28,6 @@
 #include "../analyzers/fftanalyzererrorcodes.h"
 #include "../math/fftadapter.h"
 
-template class EPT_EXTERN std::shared_ptr<FFTPolygon>;
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Class of a message informing that a new FFT has been calculated

@@ -26,7 +26,7 @@
 
 #include "prerequisites.h"
 
-#include "centralplotframe.h"
+//#include "centralplotframe.h"
 #include "core/piano/piano.h"
 
 class QwtPlotCurve;
@@ -59,7 +59,7 @@ private slots:
     void plotToolButtonToggled(bool);
 
 private:
-    CentralPlotFrame *mPlot;
+    //CentralPlotFrame *mPlot;
     std::array<QwtPlotCurve *, CURVE_COUNT> mCurves;
     std::array<PlotToolButton *, CURVE_COUNT> mPlotToolButtons;
 

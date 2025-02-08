@@ -32,12 +32,12 @@ DisplaySizeDependingGroupBox::DisplaySizeDependingGroupBox(QWidget *parent, QLay
         // on normal displays draw a group box around the data
         QVBoxLayout *dummyLayout = new QVBoxLayout;
         this->setLayout(dummyLayout);
-        dummyLayout->setMargin(0);
+        dummyLayout->setContentsMargins(0,0,0,0);
         mGroupBox = new QGroupBox;
         dummyLayout->addWidget(mGroupBox);
         mMainWidgetContainer = mGroupBox;
     } else {
-        mainLayout->setMargin(0);
+        mainLayout->setContentsMargins(0,0,0,0);
     }
 
     mMainWidgetContainer->setLayout(mainLayout);

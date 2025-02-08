@@ -83,7 +83,7 @@ OptionsDialog::OptionsDialog(MainWindow *mainWindow)
     int startupId = std::max<int>(0, SettingsForQt::getSingleton().getLastVisitedOptionsPage());
     group->button(startupId)->setChecked(true);
     onCurrentSelectionChanged(startupId);
-    QObject::connect(group, SIGNAL(buttonClicked(int)), this, SLOT(onCurrentSelectionChanged(int)));
+    QObject::connect(group, SIGNAL(idClicked(int)), this, SLOT(onCurrentSelectionChanged(int)));
 
     resize(mMainWindow->centralWidget()->size());
     SHOW_DIALOG(this);

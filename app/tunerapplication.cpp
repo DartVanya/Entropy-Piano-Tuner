@@ -203,8 +203,9 @@ void TunerApplication::playStartupSound() {
 
     // play the actual sound
     QMediaPlayer *player = new QMediaPlayer(this);
-    player->setMedia(QUrl::fromLocalFile(audioFile.fileName()));
-    player->setVolume(50);
+    player->setAudioOutput(new QAudioOutput());
+    player->audioOutput()->setVolume(0.5f);
+    player->setSource(QUrl::fromLocalFile(audioFile.fileName()));
     player->play();
     if (player->error() != QMediaPlayer::NoError) {
         LogW("Error in QMediaPlayer: %s", player->errorString().toStdString().c_str());

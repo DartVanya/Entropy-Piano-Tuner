@@ -58,7 +58,6 @@ struct EPT_EXTERN FrequencyDetectionResultStruct
 };
 
 using FrequencyDetectionResult = std::shared_ptr<FrequencyDetectionResultStruct>;
-template class EPT_EXTERN std::shared_ptr<FrequencyDetectionResultStruct>;
 
 #endif // FFTANALYZERERRORCODES_H
 

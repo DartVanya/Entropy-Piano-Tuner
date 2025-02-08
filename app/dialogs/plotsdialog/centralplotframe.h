@@ -22,6 +22,7 @@
 
 #include <QTouchEvent>
 #include <QTime>
+#include <QTimer>
 
 #include <qwt_plot.h>
 #include <qwt_plot_zoomer.h>
@@ -65,7 +66,7 @@ private:
     QwtPlotZoomer *mPlotZoomer;
     QwtPlotZoomer *mNonStackInvisibleZoomer;
 
-    QTime mPlotTimer;
+    QTimer mPlotTimer;
 
 
     QList<QTouchEvent::TouchPoint> mTouchPoints;

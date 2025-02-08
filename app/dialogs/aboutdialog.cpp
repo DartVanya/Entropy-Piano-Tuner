@@ -71,7 +71,7 @@ AboutDialog::AboutDialog(QWidget *parent, QString iconPostfix) :
 
     QDateTime compileTime(QDateTime::fromString(__TIMESTAMP__));
 
-    const QString buildText = tr("Built on %1").arg(compileTime.toString(Qt::DefaultLocaleLongDate));
+    const QString buildText = tr("Built on %1").arg(compileTime.toString());
     const QString buildByText = tr("by %1 and %2").arg("Prof. Dr. Haye Hinrichsen", "Christoph Wick M.Sc.");
 
     QString dependenciesText = tr("Based on");
@@ -114,7 +114,7 @@ AboutDialog::AboutDialog(QWidget *parent, QString iconPostfix) :
     text->setHtml(completeText);
 
     QHBoxLayout *okButtonLayout = new QHBoxLayout;
-    okButtonLayout->setMargin(0);
+    okButtonLayout->setSpacing(0);
     mainLayout->addLayout(okButtonLayout);
     okButtonLayout->addStretch();
 

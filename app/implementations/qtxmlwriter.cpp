@@ -93,7 +93,6 @@ void QtXmlWriter::writeTextElement(const std::string &name, const std::wstring &
 void QtXmlWriter::writeDoubleListElement(const std::string &name, const std::vector<double> &values, const std::string &separator) {
     QString tsstring;
     QTextStream ts(&tsstring);
-    ts.setCodec(mWriter.codec());
     ts.setLocale(QLocale(QLocale::English));
     for (size_t i = 0; i < values.size() - 1; ++i) {
         // all but last with space

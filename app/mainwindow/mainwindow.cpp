@@ -60,12 +60,15 @@
 #include "dialogs/donotshowagainmessagebox.h"
 #include "dialogs/editpianosheet/editpianosheetdialog.h"
 #include "dialogs/log/logviewer.h"
-#include "dialogs/plotsdialog/plotsdialog.h"
 #include "implementations/settingsforqt.h"
 #include "options/optionsdialog.h"
 
 #include "qtconfig.h"
 #include "displaysize.h"
+
+#ifdef QT_MIDI_LIB
+#include "dialogs/plotsdialog/plots
+#endif
 
 const int MAX_NUMBER_OF_INVALID_RECORDINGS_BEFORE_USER_INFORMATION = 3;
 
@@ -127,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent) :
     modeScrollArea->setWidget(modeScrollContents);
     modeScrollContents->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     QVBoxLayout *modeScrollLayout = new QVBoxLayout;
-    modeScrollLayout->setMargin(0);
+    modeScrollLayout->setContentsMargins(0, 0, 0, 0);
     modeScrollLayout->setSpacing(0);
     modeScrollContents->setLayout(modeScrollLayout);
 
@@ -197,7 +200,9 @@ MainWindow::MainWindow(QWidget *parent) :
     mFileToolBar->addAction(iconFromTheme("edit-clear"), tr("Clear pitch markers"), this, SLOT(onResetRecording()));
     mFileToolBar->addSeparator();
     mFileToolBar->addAction(iconFromTheme("preferences-system"), tr("Options"), this, SLOT(onOptions()));
+#ifdef QT_QWT_LIB
     mFileToolBar->addAction(QIcon(":/media/icons/mathematical_plot.png"), tr("Graphs"), this, SLOT(onOpenPlots()));
+#endif
     mFileToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
 
     QToolBar *helpToolBar = new QToolBar(tr("Help"));
@@ -317,8 +322,8 @@ void MainWindow::init(Core *core) {
     mCore = core;
 
     LogV("Creating QMidiAutoConnector");
-    mMidiAutoConnector = new QMidiAutoConnector(this);
-    connect(mMidiAutoConnector, &QMidiAutoConnector::inputDeviceCreated, this, &MainWindow::onMidiInputDeviceCreated);
+    //mMidiAutoConnector = new QMidiAutoConnector(this);
+    //connect(mMidiAutoConnector, &QMidiAutoConnector::inputDeviceCreated, this, &MainWindow::onMidiInputDeviceCreated);
 
     qDebug() << "Display size: " << QGuiApplication::primaryScreen()->physicalSize();
 
@@ -680,10 +685,12 @@ void MainWindow::onOptions() {
     options.exec();
 }
 
+#ifdef QT_QWT_LIB
 void MainWindow::onOpenPlots() {
     PlotsDialog pd(mCore->getPianoManager()->getPiano(), this);
     pd.exec();
 }
+#endif
 
 void MainWindow::onTutorial() {
     QDialog helpDialog(this, Qt::Window);
@@ -729,7 +736,7 @@ void MainWindow::onTutorial() {
     }
 
     // replace media content
-    text.replace(QRegExp("SRC=\"([^\"]*)\""), "SRC=\":/tutorial/\\1\"");
+    text.replace(QRegularExpression("SRC=\"([^\"]*)\""), "SRC=\":/tutorial/\\1\"");
     edit->setText(text);
     edit->setTextInteractionFlags(Qt::LinksAccessibleByMouse | Qt::LinksAccessibleByKeyboard);
 
@@ -846,6 +853,7 @@ void MainWindow::onVersionUpdate(VersionInformation information) {
     }
 }
 
+#ifdef QT_MIDI_LIB
 void MainWindow::onMidiInputDeviceCreated(const QMidiInput *input) {
     connect(input, &QMidiInput::notify, this, &MainWindow::onMidiMessageReceived);
 }
@@ -853,3 +861,4 @@ void MainWindow::onMidiInputDeviceCreated(const QMidiInput *input) {
 void MainWindow::onMidiMessageReceived(const QMidiMessage &message) {
     mCore->getMidiInterface()->receiveMessage(message.byte0(), message.byte1(), message.byte2(), message.timestamp());
 }
+#endif

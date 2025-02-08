@@ -21,6 +21,7 @@
 #define AUDIORECORDERFORQT_H
 
 #include <QAudioInput>
+#include <QAudioSource>
 #include <QTimer>
 
 #include "prerequisites.h"
@@ -46,10 +47,10 @@ public:
     virtual double getGain() const override final;
 
 protected:
-   virtual QAudio::Error createDevice(const QAudioFormat &format, const QAudioDeviceInfo &info, int bufferSizeMS) override final;
+   virtual QAudio::Error createDevice(const QAudioFormat &format, const QAudioDevice &info, int bufferSizeMS) override final;
 
 private:
-    QAudioInput *mAudioInput;
+    QAudioSource *mAudioInput;
     QTimer mReadTimer;
 };
 

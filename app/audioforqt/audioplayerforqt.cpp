@@ -20,6 +20,7 @@
 #include "audioplayerforqt.h"
 
 #include <QDebug>
+#include <QAudioSink>
 
 #include "core/system/log.h"
 
@@ -36,7 +37,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 AudioPlayerForQt::AudioPlayerForQt(QObject *parent)
-    : AudioInterfaceForQt(QAudio::AudioOutput, parent)
+    : AudioInterfaceForQt(QAudioDevice::Mode::Output, parent)
     , mAudioSink(nullptr)
 {
 }
@@ -53,10 +54,10 @@ AudioPlayerForQt::AudioPlayerForQt(QObject *parent)
 /// audio device is instantiated and started.
 ///////////////////////////////////////////////////////////////////////////////
 
-QAudio::Error AudioPlayerForQt::createDevice(const QAudioFormat &format, const QAudioDeviceInfo &info, int bufferSizeMS)
+QAudio::Error AudioPlayerForQt::createDevice(const QAudioFormat &format, const QAudioDevice &info, int bufferSizeMS)
 {
     // Open the audio output stream
-    mAudioSink = new QAudioOutput(info, format);
+    mAudioSink = new QAudioSink(info, format);
     QObject::connect(mAudioSink, SIGNAL(stateChanged(QAudio::State)), this, SLOT(stateChanged(QAudio::State)));
     if (mAudioSink->error() != QAudio::NoError)
     {

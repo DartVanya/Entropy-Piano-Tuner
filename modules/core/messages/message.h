@@ -95,6 +95,6 @@ private:
 
 
 typedef std::shared_ptr<Message> MessagePtr;    ///< Global type of a shared message pointer
-template class EPT_EXTERN std::shared_ptr<Message>;
+//template class EPT_EXTERN std::shared_ptr<Message>;
 
 #endif // MESSAGE_H

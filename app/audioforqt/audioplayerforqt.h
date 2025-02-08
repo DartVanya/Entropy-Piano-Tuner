@@ -21,6 +21,7 @@
 #define AUDIOPLAYERFORQT_H
 
 #include <QAudioOutput>
+#include <QAudioSink>
 
 #include "prerequisites.h"
 
@@ -55,14 +56,14 @@ public:
     virtual void setGain(double gain) override final;
     virtual double getGain() const override final;
 protected:
-   virtual QAudio::Error createDevice(const QAudioFormat &format, const QAudioDeviceInfo &info, int bufferSizeMS) override final;
+   virtual QAudio::Error createDevice(const QAudioFormat &format, const QAudioDevice &info, int bufferSizeMS) override final;
 
 private slots:
     void errorString(QString);
     void stateChanged(QAudio::State state);
 
 private:
-    QAudioOutput *mAudioSink;           ///< Audio sink to which the data is sent
+    QAudioSink *mAudioSink;           ///< Audio sink to which the data is sent
 };
 
 #endif // AUDIOPLAYERFORQT_H

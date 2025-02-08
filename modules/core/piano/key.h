@@ -28,7 +28,7 @@
 
 class Key;
 
-template class EPT_EXTERN std::shared_ptr<Key>;
+// template class EPT_EXTERN std::shared_ptr<Key>;
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Class describing a single piano key

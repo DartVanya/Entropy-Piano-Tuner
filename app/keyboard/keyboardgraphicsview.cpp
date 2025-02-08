@@ -79,7 +79,7 @@ KeyboardGraphicsView::KeyboardGraphicsView(QWidget *parent)
     setWhatsThis(tr("This window displays the keyboard. Each key has a small indicator that will display the current recording state of this key."));
 
     // antialiasing for nice lines
-    setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::HighQualityAntialiasing);
+    setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::TextAntialiasing);
 
 
     // create shortcuts for selecting next and previous key

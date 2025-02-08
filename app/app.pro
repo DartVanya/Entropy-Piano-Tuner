@@ -7,7 +7,7 @@
 #-------------------------------------------------
 
 # Qt modules
-QT          += core gui multimedia widgets concurrent midi
+QT          += core gui multimedia widgets concurrent
 qtHaveModule(svg):QT += svg
 android:QT  += androidextras
 
@@ -96,7 +96,6 @@ contains(EPT_THIRDPARTY_CONFIG, system_fftw3) {
 
 $$depends_getmemorysize()
 $$depends_libuv()
-$$depends_qwt()
 $$depends_timesupport()
 
 #-------------------------------------------------
@@ -240,10 +239,6 @@ HEADERS  += \
     dialogs/algorithmdialog/algorithmdialogparameterupdatetimer.h \
     dialogs/editpianosheet/editpianosheetdialog.h \
     dialogs/log/logviewer.h \
-    dialogs/plotsdialog/centralplotframe.h \
-    dialogs/plotsdialog/keyindexscaledraw.h \
-    dialogs/plotsdialog/keyindexscaleengine.h \
-    dialogs/plotsdialog/plotsdialog.h \
     dialogs/aboutdialog.h \
     dialogs/autoclosingmessagebox.h \
     dialogs/donotshowagainmessagebox.h \
@@ -275,7 +270,6 @@ HEADERS  += \
     mainwindow/volumecontrolgroupbox.h \
     mainwindow/volumecontrollevel.h \
     options/audio/optionspageaudio.h \
-    options/audio/optionspageaudiomidipage.h \
     options/audio/optionspageaudioinputoutputpage.h \
     options/environment/optionspageenvironment.h \
     options/environment/optionspageenvironmentgeneralpage.h \
@@ -310,10 +304,6 @@ SOURCES +=  \
     dialogs/algorithmdialog/algorithmdialogparameterupdatetimer.cpp \
     dialogs/editpianosheet/editpianosheetdialog.cpp \
     dialogs/log/logviewer.cpp \
-    dialogs/plotsdialog/plotsdialog.cpp \
-    dialogs/plotsdialog/centralplotframe.cpp \
-    dialogs/plotsdialog/keyindexscaleengine.cpp \
-    dialogs/plotsdialog/keyindexscaledraw.cpp \
     dialogs/aboutdialog.cpp \
     dialogs/autoclosingmessagebox.cpp \
     dialogs/donotshowagainmessagebox.cpp \
@@ -345,7 +335,6 @@ SOURCES +=  \
     mainwindow/volumecontrolgroupbox.cpp \
     mainwindow/volumecontrollevel.cpp \
     options/audio/optionspageaudio.cpp \
-    options/audio/optionspageaudiomidipage.cpp \
     options/audio/optionspageaudioinputoutputpage.cpp \
     options/environment/optionspageenvironment.cpp \
     options/environment/optionspageenvironmentgeneralpage.cpp \
@@ -369,6 +358,34 @@ SOURCES +=  \
     tunerapplication.cpp \
     versioncheck.cpp \
 
+
+#-------------------------------------------------
+#            If QtMidi support.
+#-------------------------------------------------
+qtHaveModule(midi) {
+    QT += midi
+    HEADERS += options/audio/optionspageaudiomidipage.h
+    SOURCES += options/audio/optionspageaudiomidipage.cpp
+}
+
+#-------------------------------------------------
+#            If QWT support.
+#-------------------------------------------------
+
+qtHaveModule(qwt) {
+    $$depends_qwt()
+    HEADERS += \
+        dialogs/plotsdialog/centralplotframe.h \
+        dialogs/plotsdialog/keyindexscaledraw.h \
+        dialogs/plotsdialog/keyindexscaleengine.h \
+        dialogs/plotsdialog/plotsdialog.h
+
+    SOURCES += \
+        dialogs/plotsdialog/plotsdialog.cpp \
+        dialogs/plotsdialog/centralplotframe.cpp \
+        dialogs/plotsdialog/keyindexscaleengine.cpp \
+        dialogs/plotsdialog/keyindexscaledraw.cpp \
+}
 
 #-------------------------------------------------
 #            Platform specific includes

@@ -81,7 +81,7 @@ struct EPT_EXTERN FFTData {
 /// finall-FFT message by the SignalAnalyzer.
 ///////////////////////////////////////////////////////////////////////////////
 using FFTDataPointer = std::shared_ptr<FFTData>;
-template class EPT_EXTERN std::shared_ptr<FFTData>;
+//template class EPT_EXTERN std::shared_ptr<FFTData>;
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Abstract base class for handling fast Fourier transforms

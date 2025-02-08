@@ -125,7 +125,7 @@ bool AlgorithmDialog::eventFilter(QObject *o, QEvent *e) {
 
         setMinimumWidth(contents->minimumSizeHint().width()
                         + vScrollBar->width()
-                        + contents->layout()->margin() * 2);
+                        + contents->layout()->spacing() * 2);
     }
 
     return false;

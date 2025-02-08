@@ -83,7 +83,7 @@ VolumeControlGroupBox::VolumeControlGroupBox(QWidget *parent) :
     QHBoxLayout *textLayout = new QHBoxLayout;
     mTextLayout = textLayout;
     mainLayout->addLayout(textLayout);
-    textLayout->setMargin(0);
+    textLayout->setContentsMargins(0, 0, 0, 0);
     textLayout->setSpacing(0);
     textLayout->addStretch();
 
@@ -92,7 +92,7 @@ VolumeControlGroupBox::VolumeControlGroupBox(QWidget *parent) :
     textLayout->addWidget(offLabel);
 
     QHBoxLayout *onLayout = new QHBoxLayout;
-    onLayout->setMargin(0);
+    onLayout->setContentsMargins(0, 0, 0, 0);
     textLayout->addLayout(onLayout);
 
     QLabel *onLabel = new QLabel("On");

@@ -20,6 +20,7 @@
 #include "optionspageaudioinputoutputpage.h"
 
 #include <QMessageBox>
+#include <QMediaDevices>
 #include <QThread>
 
 #include "audioforqt/audiointerfaceforqt.h"
@@ -33,13 +34,13 @@
 
 namespace options {
 
-PageAudioInputOutput::PageAudioInputOutput(OptionsDialog *optionsDialog, QAudio::Mode mode)
+PageAudioInputOutput::PageAudioInputOutput(OptionsDialog *optionsDialog, QAudioDevice::Mode mode)
     : mOptionsDialog(optionsDialog),
       mAudioInterface(nullptr),
       mMode(mode) {
 
     ProgressOverlay *overlay = nullptr;
-    if (mode == QAudio::AudioInput) {
+    if (mode == QAudioDevice::Mode::Input) {
         mAudioInterface = dynamic_cast<AudioInterfaceForQt*>(optionsDialog->getCore()->getAudioInput());
         overlay = new ProgressOverlay(this, tr("Loading input devices"), true);
     } else {
@@ -82,7 +83,7 @@ PageAudioInputOutput::PageAudioInputOutput(OptionsDialog *optionsDialog, QAudio:
 
 
     // special widgets for output
-    if (mMode == QAudio::AudioOutput) {
+    if (mMode == QAudioDevice::Mode::Output) {
         // Channels
         inputLayout->addWidget(new QLabel(tr("Channels")), 4, 0);
 
@@ -116,7 +117,7 @@ PageAudioInputOutput::PageAudioInputOutput(OptionsDialog *optionsDialog, QAudio:
 
     // set current values
     addDevice(mAudioInterface->getDeviceInfo());
-    mDeviceSelection->setCurrentText(mAudioInterface->getDeviceInfo().deviceName());
+    mDeviceSelection->setCurrentText(mAudioInterface->getDeviceInfo().description());
     onDeviceSelectionChanged(mDeviceSelection->currentIndex());
     mSamplingRates->setCurrentText(QString("%1").arg(mAudioInterface->getSamplingRate()));
 
@@ -131,7 +132,7 @@ PageAudioInputOutput::PageAudioInputOutput(OptionsDialog *optionsDialog, QAudio:
     QObject::connect(mSamplingRates, SIGNAL(currentIndexChanged(int)), optionsDialog, SLOT(onChangesMade()));
 
     // special audio output
-    if (mMode == QAudio::AudioOutput) {
+    if (mMode == QAudioDevice::Mode::Output) {
         mChannelsSelect->setCurrentText(QString::number(mAudioInterface->getChannelCount()));
         // notify if changes are made
         QObject::connect(mChannelsSelect, SIGNAL(currentIndexChanged(int)), optionsDialog, SLOT(onChangesMade()));
@@ -141,7 +142,7 @@ PageAudioInputOutput::PageAudioInputOutput(OptionsDialog *optionsDialog, QAudio:
     // start thread to load devices
     DeviceLoaderThread *t = new DeviceLoaderThread(this, mode);
     QObject::connect(t, SIGNAL(updateProgress(int)), overlay, SLOT(updatePercentage(int)));
-    QObject::connect(t, SIGNAL(deviceReady(QAudioDeviceInfo)), this, SLOT(addDevice(QAudioDeviceInfo)));
+    QObject::connect(t, SIGNAL(deviceReady(QAudioDevice)), this, SLOT(addDevice(QAudioDevice)));
     t->start();
     mDeviceLoader = t;
 }
@@ -157,15 +158,15 @@ void PageAudioInputOutput::apply() {
     assert(mSamplingRates->currentText().isEmpty() == false);
 
     //PCMDevice *writerInterfaceBackup = nullptr;
-    if (mMode == QAudio::AudioOutput) {
+    if (mMode == QAudioDevice::Mode::Output) {
         //writerInterfaceBackup = dynamic_cast<AudioPlayerAdapter*>(mAudioBase)->getWriter();
     }
 
-    QAudioDeviceInfo info(mDeviceSelection->currentData().value<QAudioDeviceInfo>());
+    QAudioDevice info(mDeviceSelection->currentData().value<QAudioDevice>());
     int bufferSizeMS = -1;
     int channels = 1;
     const int samplingRate = mSamplingRates->currentText().toInt();
-    if (mMode == QAudio::AudioOutput) {
+    if (mMode == QAudioDevice::Mode::Output) {
         bufferSizeMS = mBufferSizeEdit->value();
         channels = mChannelsSelect->currentData().toInt();
     } else {
@@ -173,7 +174,7 @@ void PageAudioInputOutput::apply() {
     mAudioInterface->reinitialize(samplingRate, channels, info, bufferSizeMS);
     mAudioInterface->start();
 
-    if (mMode == QAudio::AudioOutput) {
+    if (mMode == QAudioDevice::Mode::Output) {
         //dynamic_cast<AudioPlayerAdapter*>(mAudioBase)->setWriter(writerInterfaceBackup);
         std::this_thread::sleep_for(std::chrono::milliseconds(500)); // give waveform generator time
         if (mOptionsDialog->getCore()->getSoundGenerator()) {
@@ -183,27 +184,16 @@ void PageAudioInputOutput::apply() {
 }
 
 void PageAudioInputOutput::onDeviceSelectionChanged(int row) {
-    QAudioDeviceInfo info(mDeviceSelection->itemData(row).value<QAudioDeviceInfo>());
+    QAudioDevice info(mDeviceSelection->itemData(row).value<QAudioDevice>());
 
     mSamplingRates->clear();
+    mSamplingRates->addItem(QString("%1").arg(22050));
+    mSamplingRates->addItem(QString("%1").arg(44100));
 
-    for (int rate : info.supportedSampleRates()) {
-        if (rate < 9000) {
-            // drop out 8000 sampling rate. Frequencies above 4000 Hz cant be recorded/played
-            // elsewise. This is the uppermost key!
-            continue;
-        }
-        mSamplingRates->addItem(QString("%1").arg(rate));
-    }
-
-    if (mMode == QAudio::AudioOutput) {
+    if (mMode == QAudioDevice::Mode::Output) {
         mChannelsSelect->clear();
-        for (int channels : info.supportedChannelCounts()) {
-            if (channels >= 1 && channels <= 2) {
-                // only 2 and 1 is supported
-                mChannelsSelect->addItem(QString::number(channels), channels);
-            }
-        }
+        mChannelsSelect->addItem(QString::number(1), 1);
+        mChannelsSelect->addItem(QString::number(2), 2);
         mChannelsSelect->setCurrentIndex(mChannelsSelect->count() - 1);
     }
 
@@ -211,18 +201,18 @@ void PageAudioInputOutput::onDeviceSelectionChanged(int row) {
 }
 
 void PageAudioInputOutput::onDefaultDevice() {
-    if (mMode == QAudio::AudioInput) {
-        mDeviceSelection->setCurrentText(QAudioDeviceInfo::defaultInputDevice().deviceName());
+    if (mMode == QAudioDevice::Mode::Input) {
+        mDeviceSelection->setCurrentText(QMediaDevices::defaultAudioInput().description());
     }
     else {
-        mDeviceSelection->setCurrentText(QAudioDeviceInfo::defaultOutputDevice().deviceName());
+        mDeviceSelection->setCurrentText(QMediaDevices::defaultAudioOutput().description());
     }
     onDefaultSamplingRate();
 }
 
 void PageAudioInputOutput::onDefaultSamplingRate() {
-    QAudioDeviceInfo info(mDeviceSelection->currentData().value<QAudioDeviceInfo>());
-    if (info.deviceName().isEmpty()) {
+    QAudioDevice info(mDeviceSelection->currentData().value<QAudioDevice>());
+    if (info.description().isEmpty()) {
         // no device found
         mSamplingRates->setCurrentText(QString());
         return;
@@ -231,9 +221,9 @@ void PageAudioInputOutput::onDefaultSamplingRate() {
     // use 22050/44100 as default sampling rate if the device supports it,
     // since the synthesizer cant handle too many samples
     // and we need at least 11025 samples for the fft.
-    if (mMode == QAudio::AudioOutput && info.supportedSampleRates().contains(22050)) {
+    if (mMode == QAudioDevice::Mode::Output && info.maximumSampleRate() <= 22050) {
         mSamplingRates->setCurrentText(QString("22050"));
-    } else if (mMode == QAudio::AudioInput && info.supportedSampleRates().contains(44100)) {
+    } else if (mMode == QAudioDevice::Mode::Input && info.maximumSampleRate() <= 44100) {
         mSamplingRates->setCurrentText(QString("44100"));
     } else {
         // select prefered
@@ -244,9 +234,10 @@ void PageAudioInputOutput::onDefaultSamplingRate() {
     }
 }
 
-void PageAudioInputOutput::addDevice(QAudioDeviceInfo info) {
-    if (mDeviceSelection->findText(info.deviceName()) == -1) {
-        mDeviceSelection->addItem(info.deviceName(), QVariant::fromValue<QAudioDeviceInfo>(info));
+void PageAudioInputOutput::addDevice(QAudioDevice info) {
+    if (mDeviceSelection->findText(info.description()) == -1) {
+        LogI("Adding device %s", info.description().toStdString().c_str());
+        mDeviceSelection->addItem(info.description(), QVariant::fromValue<QAudioDevice>(info));
     }
 }
 
@@ -258,31 +249,24 @@ void PageAudioInputOutput::onDefaultBufferSize() {
     mBufferSizeEdit->setValue(AudioInterfaceForQt::DEFAULT_BUFFER_SIZE_MS);
 }
 
-DeviceLoaderThread::DeviceLoaderThread(QObject *parent, QAudio::Mode mode)
+DeviceLoaderThread::DeviceLoaderThread(QObject *parent, QAudioDevice::Mode mode)
     : QThread(parent)
     , mMode(mode)
 {
 }
 
 void DeviceLoaderThread::run() {
-    QList<QAudioDeviceInfo> deviceInfos(QAudioDeviceInfo::availableDevices(mMode));
+    QList<QAudioDevice> deviceInfos(mMode == QAudioDevice::Mode::Input ? QMediaDevices::audioInputs() : QMediaDevices::audioOutputs());
     int progress = 0;
-    for (QAudioDeviceInfo info : deviceInfos) {
+    for (QAudioDevice info : deviceInfos) {
         if (isInterruptionRequested()) {
             break;
         }
-        bool isSupported = info.isFormatSupported(info.preferredFormat());
         emit updateProgress(progress);
         progress += 100 / deviceInfos.size();
-        if (!isSupported) {
-            // no supported formats, dont list
-            LogI("%s is not supported.", info.deviceName().toStdString().c_str());
-            continue;
-        }
 
-        LogI("%s is supported.", info.deviceName().toStdString().c_str());
+        LogI("%s is supported.", info.description().toStdString().c_str());
 
-        //mDeviceSelection->addItem(info.deviceName(), QVariant::fromValue<QAudioDeviceInfo>(info));
         emit deviceReady(info);
     }
 

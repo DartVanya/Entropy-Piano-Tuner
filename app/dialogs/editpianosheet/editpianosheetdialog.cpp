@@ -55,7 +55,7 @@ EditPianoSheetDialog::EditPianoSheetDialog(const Piano &piano, QWidget *parent) 
 
     ui->tuningLocationLineEdit->setText(QString::fromStdWString(piano.getTuningLocation()));
     QDateTime time = QDateTime::fromString(QString::fromStdWString(piano.getTuningTime()), "yyyy-MM-dd HH:mm:ss").toLocalTime();
-    time.setTimeSpec(Qt::UTC);
+    time.setTimeZone(QTimeZone::UTC);
     ui->timeOfTuningDateTimeEdit->setDateTime(time.toLocalTime());
 
     ui->concertPitchSpinBox->setValue(piano.getConcertPitch());
@@ -122,7 +122,7 @@ bool EditPianoSheetDialog::eventFilter(QObject *o, QEvent *e) {
     if (o == ui->scrollAreaWidgetContents && e->type() == QEvent::Resize) {
         setMinimumWidth(ui->scrollAreaWidgetContents->minimumSizeHint().width()
                         + ui->scrollArea->verticalScrollBar()->width()
-                        + ui->scrollAreaWidgetContents->layout()->margin() * 2);
+                        + ui->scrollAreaWidgetContents->layout()->spacing() * 2);
     }
 
     return false;

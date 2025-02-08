@@ -161,7 +161,7 @@ void CentralPlotFrame::applyTouchTransform(int final) {
         mTouchPoints.clear();
     } else {
         // check timer
-        if (mPlotTimer.elapsed() > FLYING_UPDATE_INTERVALL_IN_MS) {
+        if (mPlotTimer.currentTime() > FLYING_UPDATE_INTERVALL_IN_MS) {
             mPlotTimer = QTime();  // reset, but dont start
             if (newRect.isNull() == false) {
                 mNonStackInvisibleZoomer->zoom(newRect);

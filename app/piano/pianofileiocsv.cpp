@@ -42,7 +42,7 @@ void PianoFileIOCsv::write(QIODevice *device, const Piano &piano) const {
     // key index + 1, inharmonicity, recorded frequency, computedAA_AttributeCount frequency, tuned frequency, quality
 
     // header
-    stream << "\"Key index\",\"Inharmonicity\",\"Recorded frequency\",\"Recorded deviation\",\"Computed frequency\",\"Computed deviation\",\"Tuned frequency\",\"Tuned deviation\",\"Quality\"" << endl;
+    stream << "\"Key index\",\"Inharmonicity\",\"Recorded frequency\",\"Recorded deviation\",\"Computed frequency\",\"Computed deviation\",\"Tuned frequency\",\"Tuned deviation\",\"Quality\"" << Qt::endl;
 
     // data
     const int A4 = piano.getKeyboard().getKeyNumberOfA4();
@@ -64,7 +64,7 @@ void PianoFileIOCsv::write(QIODevice *device, const Piano &piano) const {
                << QString("%1,").arg(key.getTunedFrequency(), 8, 'g', 5)
                << QString("%1,").arg(cents(i,key.getTunedFrequency(),piano.getConcertPitch()), 6, 'g', 5)
                << QString("%1,").arg(key.getRecognitionQuality(), 6, 'g', 5)
-               << endl;
+               << Qt::endl;
     }
 
     if (stream.status() == QTextStream::WriteFailed) {

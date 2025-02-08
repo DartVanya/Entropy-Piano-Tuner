@@ -93,6 +93,6 @@ public:
 };
 
 typedef std::shared_ptr<MidiAdapter> MidiAdapterPtr;
-template class EPT_EXTERN std::shared_ptr<MidiAdapter>;
+//template class EPT_EXTERN std::shared_ptr<MidiAdapter>;
 
 #endif // MIDIADAPTER_H

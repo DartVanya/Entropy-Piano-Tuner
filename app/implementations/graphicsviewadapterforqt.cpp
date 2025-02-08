@@ -50,7 +50,7 @@ GraphicsViewAdapterForQt::GraphicsViewAdapterForQt (QWidget *parent,
     // antialiasing for nice lines
     setRenderHints(QPainter::Antialiasing |
                    QPainter::SmoothPixmapTransform |
-                   QPainter::HighQualityAntialiasing);
+                   QPainter::TextAntialiasing);
 }
 
 

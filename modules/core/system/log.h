@@ -32,33 +32,33 @@
 #endif
 
 #if LOG_LEVEL <= 1
-#   define LogV(...) LOGVA(DEBUG, __VA_ARGS__)
+#   define LogV(m, ...) LOGVA(DEBUG, m, __VA_ARGS__)
 #else
-#   define LogV(...)
+#   define LogV(m, ...)
 #endif
 
 #if LOG_LEVEL <= 2
-#   define LogD(...) LOGVA(DEBUG, __VA_ARGS__)
+#   define LogD(m, ...) LOGVA(DEBUG, m, __VA_ARGS__)
 #else
-#   define LogD(...)
+#   define LogD(m, ...)
 #endif
 
 #if LOG_LEVEL <= 3
-#   define LogI(...) LOGVA(INFO, __VA_ARGS__)
+#   define LogI(m, ...) LOGVA(INFO, m, __VA_ARGS__)
 #else
-#   define LogI(...)
+#   define LogI(m, ...)
 #endif
 
 #if LOG_LEVEL <= 4
-#   define LogW(...) LOGVA(WARNING, __VA_ARGS__)
+#   define LogW(m, ...) LOGVA(WARNING, m, __VA_ARGS__)
 #else
-#   define LogW(...)
+#   define LogW(m, ...)
 #endif
 
 #if LOG_LEVEL <= 5
-#   define LogE(...) LOGVA(FATAL, __VA_ARGS__)
+#   define LogE(m, ...) LOGVA(FATAL, m, __VA_ARGS__)
 #else
-#   define LogE(...)
+#   define LogE(m, ...)
 #endif
 
 #endif // LOG_H

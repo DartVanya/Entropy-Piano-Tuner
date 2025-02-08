@@ -59,10 +59,11 @@ bool PlatformTools::openFileFromArgs(const QStringList &args) {
 void PlatformTools::openFile(const char *file, bool cached) {
     QString fileName(file);
     LogI("Opening external file %s", file);
+    bool returnValue;
     QMetaObject::invokeMethod(TunerApplication::getSingletonPtr(),
-                              "openFile",
+                              &TunerApplication::openFile,
                               Qt::QueuedConnection,
-                              QGenericReturnArgument(0),
-                              Q_ARG(QString, fileName),
-                              Q_ARG(bool, cached));
+                              qReturnArg(returnValue),
+                              fileName,
+                              cached);
 }
