@@ -25,6 +25,7 @@
 #include <QToolButton>
 #include <memory>
 
+#include <qtmidi/qmidiautoconnector.h>
 #include "prerequisites.h"
 
 #include "core/config.h"
@@ -39,10 +40,6 @@
 #include "tuningindicatorgroupbox.h"
 #include "versioncheck.h"
 #include "progressdisplay.h"
-
-#ifdef QT_MIDI_LIB
-#include <QtMidi/qmidiautoconnector.h>
-#endif
 
 class KeyboardGraphicsView;
 
@@ -102,7 +99,7 @@ public:
     /// \return mMidiAutoConnector
     ///
     ///////////////////////////////////////////////////////////////////////////////
-    // QMidiAutoConnector *getMidiAutoConnector() {return mMidiAutoConnector;}
+    QMidiAutoConnector *getMidiAutoConnector() {return mMidiAutoConnector;}
 
 protected:
     ///////////////////////////////////////////////////////////////////////////////
@@ -192,7 +189,7 @@ private:
     QToolButton *mModeToolButtons[OperationMode::MODE_COUNT];
 
     /// Instance of the midi auto connector
-    // QMidiAutoConnector *mMidiAutoConnector = nullptr;
+    QMidiAutoConnector *mMidiAutoConnector = nullptr;
 
 signals:
     void modeChanged(OperationMode mode);
@@ -359,10 +356,8 @@ public slots:
 private slots:
     void onVersionUpdate(VersionInformation information);
 
-#ifdef QT_MIDI_LIB
     void onMidiInputDeviceCreated(const QMidiInput *input);
     void onMidiMessageReceived(const QMidiMessage &message);
-#endif
 };
 
 #endif // MAINWINDOW_H

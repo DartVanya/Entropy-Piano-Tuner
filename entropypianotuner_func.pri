@@ -258,3 +258,14 @@ defineReplace(depends_tp3log) {
 
     return(true)
 }
+
+defineReplace(depends_qtmidi) {
+    include($$EPT_THIRDPARTY_DIR/qtmidi/qtmidi/qtmidi.pri)
+
+    export(LIBS)
+    export(INCLUDEPATH)
+    export(ANDROID_EXTRA_LIBS)
+    export(DLLS)
+
+    return(true)
+}

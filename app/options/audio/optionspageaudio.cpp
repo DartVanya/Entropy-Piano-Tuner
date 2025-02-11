@@ -19,7 +19,7 @@
 
 #include "optionspageaudio.h"
 #include "optionspageaudioinputoutputpage.h"
-//#include "optionspageaudiomidipage.h"
+#include "optionspageaudiomidipage.h"
 #include "mainwindow/mainwindow.h"
 
 namespace options {
@@ -30,7 +30,7 @@ PageAudio::PageAudio(OptionsDialog *optionsDialog) :
 {
     this->addTab(new PageAudioInputOutput(optionsDialog, QAudioDevice::Mode::Input), tr("Input device"));
     this->addTab(new PageAudioInputOutput(optionsDialog, QAudioDevice::Mode::Output), tr("Output device"));
-    //this->addTab(new PageAudioMidi(optionsDialog, optionsDialog->getMainWindow()->getMidiAutoConnector()), tr("Midi"));
+    this->addTab(new PageAudioMidi(optionsDialog, optionsDialog->getMainWindow()->getMidiAutoConnector()), tr("Midi"));
 
     restorePageFromSettings();
 }

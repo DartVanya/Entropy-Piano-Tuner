@@ -447,12 +447,12 @@ bool Synthesizer::generateAudioSignal (DataType *outputBuffer, const int64_t pac
         // write data to buffer
         if (channels==1)
         {
-            outputBuffer[bufferIndex] = static_cast<DataType>((left+right)/2 * std::numeric_limits<DataType>::max());
+            outputBuffer[bufferIndex] = static_cast<DataType>((left+right)/2);
         }
         else // if stereo
         {
-            outputBuffer[bufferIndex - 1] = static_cast<DataType>(left * std::numeric_limits<DataType>::max());
-            outputBuffer[bufferIndex] = static_cast<DataType>(right * std::numeric_limits<DataType>::max());
+            outputBuffer[bufferIndex - 1] = static_cast<DataType>(left);
+            outputBuffer[bufferIndex] = static_cast<DataType>(right);
         }
 
     }

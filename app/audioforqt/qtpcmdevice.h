@@ -28,10 +28,12 @@ class AudioInterfaceForQt;
 
 class QtPCMDevice : public QIODevice
 {
+    Q_OBJECT
 public:
     QtPCMDevice(AudioInterfaceForQt *audioInterface);
 
     virtual bool open(OpenMode mode) override final;
+    virtual qint64 bytesAvailable() const override final;
     virtual void close() override final;
 
     void setDevice(PCMDevice *device);
@@ -39,6 +41,10 @@ public:
 
 
     virtual bool isSequential() const override {return false;}
+
+signals:
+    void deviceChanged(PCMDevice *device);
+
 private:
     virtual qint64 readData(char *data, qint64 maxSize) override final;
     virtual qint64 writeData(const char *data, qint64 maxSize) override final;

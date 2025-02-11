@@ -97,6 +97,7 @@ contains(EPT_THIRDPARTY_CONFIG, system_fftw3) {
 $$depends_getmemorysize()
 $$depends_libuv()
 $$depends_timesupport()
+$$depends_qtmidi()
 
 #-------------------------------------------------
 #                      Apple
@@ -271,6 +272,7 @@ HEADERS  += \
     mainwindow/volumecontrollevel.h \
     options/audio/optionspageaudio.h \
     options/audio/optionspageaudioinputoutputpage.h \
+    options/audio/optionspageaudiomidipage.h \
     options/environment/optionspageenvironment.h \
     options/environment/optionspageenvironmentgeneralpage.h \
     options/environment/optionspageenvironmenttuningpage.h \
@@ -336,6 +338,7 @@ SOURCES +=  \
     mainwindow/volumecontrollevel.cpp \
     options/audio/optionspageaudio.cpp \
     options/audio/optionspageaudioinputoutputpage.cpp \
+    options/audio/optionspageaudiomidipage.cpp \
     options/environment/optionspageenvironment.cpp \
     options/environment/optionspageenvironmentgeneralpage.cpp \
     options/environment/optionspageenvironmenttuningpage.cpp \
@@ -357,16 +360,6 @@ SOURCES +=  \
     runguard.cpp \
     tunerapplication.cpp \
     versioncheck.cpp \
-
-
-#-------------------------------------------------
-#            If QtMidi support.
-#-------------------------------------------------
-qtHaveModule(midi) {
-    QT += midi
-    HEADERS += options/audio/optionspageaudiomidipage.h
-    SOURCES += options/audio/optionspageaudiomidipage.cpp
-}
 
 #-------------------------------------------------
 #            If QWT support.

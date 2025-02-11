@@ -122,6 +122,8 @@ void AudioPlayerForQt::start()
             if (mAudioSink->error() != QAudio::NoError)
             {
                 qWarning() << "Error opening QAudioOutput with error " << mAudioSink->error();
+            } else if (mAudioSink->state() != QAudio::ActiveState) {
+                qWarning() << "Unknown error. Audio sink started but not in active state. Instead in" << mAudioSink->state();
             }
         }
     }

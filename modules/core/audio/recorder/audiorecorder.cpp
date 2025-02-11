@@ -96,7 +96,7 @@ int64_t AudioRecorder::write(const char *data, int64_t max_bytes) {
 
     while (p != pend) {
         *p = *d;
-        *p /= std::numeric_limits<DataType>::max();
+        //*p /= std::numeric_limits<DataType>::max();
         ++p;
         ++d;
     }

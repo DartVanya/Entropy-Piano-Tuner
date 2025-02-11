@@ -33,7 +33,7 @@ AudioInterfaceForQt::AudioInterfaceForQt(QAudioDevice::Mode mode, QObject *paren
     , mPCMDevice(this)
 {
     // these settings are fixed
-    mFormat.setSampleFormat(QAudioFormat::Int16);
+    mFormat.setSampleFormat(QAudioFormat::Float);
 
     // default values, these can be changed
     mFormat.setSampleRate(mode == QAudioDevice::Mode::Input ? 44100 : 22050);
@@ -59,7 +59,7 @@ void AudioInterfaceForQt::reinitialize(int samplingRate, int channelCount, QAudi
             return;
         }
 
-        if (mFormat.sampleFormat() != QAudioFormat::Int16) {
+        if (mFormat.sampleFormat() != QAudioFormat::Float) {
             LogW("Sample format not supported");
             return;
         }

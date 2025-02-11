@@ -23,8 +23,8 @@
 #include <QWidget>
 #include <QComboBox>
 #include <QProgressBar>
-#include <QtMidi/qmidisystemnotifier.h>
-#include <QtMidi/qmidiautoconnector.h>
+#include <qtmidi/qmidisystemnotifier.h>
+#include <qtmidi/qmidiautoconnector.h>
 
 #include "prerequisites.h"
 

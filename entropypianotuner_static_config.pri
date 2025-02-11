@@ -30,7 +30,7 @@ else: EPT_CONFIG += install
 # third party modules
 
 # select modules
-CONFIG += fftw3
+CONFIG += fftw3 qtmidi
 
 # add libuv when shared algorithms are enabled
 contains(EPT_CONFIG, shared_algorithms) {

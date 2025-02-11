@@ -66,7 +66,7 @@
 #include "qtconfig.h"
 #include "displaysize.h"
 
-#ifdef QT_MIDI_LIB
+#ifdef QT_QWT_LIB
 #include "dialogs/plotsdialog/plots
 #endif
 
@@ -322,8 +322,8 @@ void MainWindow::init(Core *core) {
     mCore = core;
 
     LogV("Creating QMidiAutoConnector");
-    //mMidiAutoConnector = new QMidiAutoConnector(this);
-    //connect(mMidiAutoConnector, &QMidiAutoConnector::inputDeviceCreated, this, &MainWindow::onMidiInputDeviceCreated);
+    mMidiAutoConnector = new QMidiAutoConnector(this);
+    connect(mMidiAutoConnector, &QMidiAutoConnector::inputDeviceCreated, this, &MainWindow::onMidiInputDeviceCreated);
 
     qDebug() << "Display size: " << QGuiApplication::primaryScreen()->physicalSize();
 
@@ -853,7 +853,6 @@ void MainWindow::onVersionUpdate(VersionInformation information) {
     }
 }
 
-#ifdef QT_MIDI_LIB
 void MainWindow::onMidiInputDeviceCreated(const QMidiInput *input) {
     connect(input, &QMidiInput::notify, this, &MainWindow::onMidiMessageReceived);
 }
@@ -861,4 +860,3 @@ void MainWindow::onMidiInputDeviceCreated(const QMidiInput *input) {
 void MainWindow::onMidiMessageReceived(const QMidiMessage &message) {
     mCore->getMidiInterface()->receiveMessage(message.byte0(), message.byte1(), message.byte2(), message.timestamp());
 }
-#endif

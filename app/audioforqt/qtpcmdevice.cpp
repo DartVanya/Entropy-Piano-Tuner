@@ -40,7 +40,21 @@ void QtPCMDevice::close() {
     QIODevice::close();
 }
 
+qint64 QtPCMDevice::bytesAvailable() const {
+    // This is a fake implementation to simulate that there is always some data available.
+    // This will force that "readData" is called which returns the actual available data.
+    if (mDevice) {
+        // Returning ~1s of data.
+        return mDevice->getSampleRate() * mDevice->getChannels() * sizeof(PCMDevice::DataType);
+    }
+    return 1000;  // At least some data.
+}
+
 void QtPCMDevice::setDevice(PCMDevice *device) {
+    if (mDevice == device) {
+        return;
+    }
+
     if (isOpen() && mDevice) {
         mDevice->close();
     }
@@ -48,6 +62,8 @@ void QtPCMDevice::setDevice(PCMDevice *device) {
     if (isOpen() && mDevice) {
         mDevice->open(mAudioInterface);
     }
+
+    emit deviceChanged(mDevice);
 }
 
 qint64 QtPCMDevice::readData(char *data, qint64 maxSize) {

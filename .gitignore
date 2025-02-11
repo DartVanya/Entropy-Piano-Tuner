@@ -11,6 +11,7 @@
 # generated files
 config.tests/*/Makefile
 .qmake.stash
+/build/
 
 # user files
 *.user
@@ -39,8 +40,7 @@ publish
 .publish*
 .directory
 
-
-# archies
+# archives
 *.tar.gz
 /docs/*
 /platforms/android/gradle.properties
