@@ -2,6 +2,7 @@
 DISTFILES += \
     $$EPT_ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml \
     $$EPT_ANDROID_PACKAGE_SOURCE_DIR/src/org/uniwue/tp3/TunerApplication.java \
+    $$PWD/gradle.properties
 
 HEADERS += \
     $$PWD/androidplatformtools.h \

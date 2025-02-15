@@ -20,6 +20,7 @@
 #include "androidnativewrapper.h"
 
 #include <QDebug>
+#include <QJniObject>
 
 #include "core/messages/messagehandler.h"
 #include "core/messages/messagemidievent.h"
@@ -33,14 +34,14 @@
 
 void callAndroidVoidTunerApplicationFunction(const char *functionName) {
     // get the application instance
-    QAndroidJniObject instance = QAndroidJniObject::callStaticObjectMethod("org/uniwue/tp3/TunerApplication", "getInstance", "()Lorg/uniwue/tp3/TunerApplication;");
+    QJniObject instance = QJniObject::callStaticObjectMethod("org/uniwue/tp3/TunerApplication", "getInstance", "()Lorg/uniwue/tp3/TunerApplication;");
     // get the path to the file to open, zero length if there is none
     instance.callMethod<void>(functionName);
 }
 
 long int callAndroidLongIntTunerApplicationFunction(const char *functionName) {
     // get the application instance
-    QAndroidJniObject instance = QAndroidJniObject::callStaticObjectMethod("org/uniwue/tp3/TunerApplication", "getInstance", "()Lorg/uniwue/tp3/TunerApplication;");
+    QJniObject instance = QJniObject::callStaticObjectMethod("org/uniwue/tp3/TunerApplication", "getInstance", "()Lorg/uniwue/tp3/TunerApplication;");
     // get the path to the file to open, zero length if there is none
     return instance.callMethod<jlong>(functionName);
 }

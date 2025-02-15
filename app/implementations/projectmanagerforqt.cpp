@@ -25,8 +25,8 @@
 #include <QStandardPaths>
 #include <QDate>
 #ifdef __ANDROID__
-#include <QAndroidJniObject>
-#include <QAndroidJniEnvironment>
+#include <QJniObject>
+#include <QJniEnvironment>
 #endif
 
 #include "core/system/log.h"
@@ -132,13 +132,13 @@ ProjectManagerForQt::Results ProjectManagerForQt::share() {
     // on android we have to call a java method, that does the sharing
 
     // get the application instance
-    QAndroidJniObject instance = QAndroidJniObject::callStaticObjectMethod("org/uniwue/tp3/TunerApplication", "getInstance", "()Lorg/uniwue/tp3/TunerApplication;");
-    QAndroidJniObject jTitle = QAndroidJniObject::fromString(MainWindow::tr("Share tuning data"));
-    QAndroidJniObject jPath = QAndroidJniObject::fromString(QString::fromStdWString(getCurrentFilePath()));
+    QJniObject instance = QJniObject::callStaticObjectMethod("org/uniwue/tp3/TunerApplication", "getInstance", "()Lorg/uniwue/tp3/TunerApplication;");
+    QJniObject jTitle = QJniObject::fromString(MainWindow::tr("Share tuning data"));
+    QJniObject jPath = QJniObject::fromString(QString::fromStdWString(getCurrentFilePath()));
     // get the path to the file to open, zero length if there is none
     instance.callMethod<void>("shareFile", "(Ljava/lang/String;Ljava/lang/String;)V", jTitle.object<jstring>(), jPath.object<jstring>());
     // check for errors
-    QAndroidJniEnvironment env;
+    QJniEnvironment env;
     if (env->ExceptionCheck()) {
         env->ExceptionDescribe();
         env->ExceptionClear();

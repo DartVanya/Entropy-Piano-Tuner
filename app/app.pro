@@ -9,7 +9,6 @@
 # Qt modules
 QT          += core gui multimedia widgets concurrent
 qtHaveModule(svg):QT += svg
-android:QT  += androidextras
 
 # Target and config
 TARGET = entropypianotuner
@@ -72,7 +71,8 @@ contains(EPT_CONFIG, static_algorithms) {
     INCLUDEPATH += $$EPT_ALGORITHMS_DIR
     LIBS += -L$$EPT_ALGORITHMS_OUT_DIR
     for(algBasename, ALGORITHM_NAMES) {
-        LIBS += -l$$algBasename
+        android:LIBS += -l$${algBasename}_$$ANDROID_TARGET_ARCH
+        else:LIBS += -l$$algBasename
     }
 }
 

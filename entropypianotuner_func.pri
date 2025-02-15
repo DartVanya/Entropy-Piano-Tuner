@@ -68,14 +68,15 @@ defineReplace(depends_core) {
     contains(EPT_CONFIG, static_core) {
         $$depends_tp3log()
     } else {
-        android:ANDROID_EXTRA_LIBS += $$EPT_CORE_OUT_DIR/libcore.so
+        android:ANDROID_EXTRA_LIBS += $$EPT_CORE_OUT_DIR/libcore_$${ANDROID_TARGET_ARCH}.so
         win32:DLLS += $$EPT_CORE_OUT_DIR/core.dll
         tp3LogDLL { $$depends_tp3log() }
     }
 
 
     LIBS += -L$$EPT_CORE_OUT_DIR
-    LIBS += -lcore
+    android:LIBS += -lcore_$${ANDROID_TARGET_ARCH}
+    else:LIBS += -lcore
 
     INCLUDEPATH += $$EPT_CORE_DIR
 
@@ -114,7 +115,7 @@ defineReplace(depends_fftw3) {
             win32 {
                 DLLS += $$FFTW_DESTDIR/fftw3.dll
             } else:android {
-                ANDROID_EXTRA_LIBS += $$FFTW_DESTDIR/libfftw3.so
+                ANDROID_EXTRA_LIBS += $$FFTW_DESTDIR/libfftw3_$${ANDROID_TARGET_ARCH}.so
             } else:linux {
                 DLLS += $$FFTW_DESTDIR/libfftw3.so
             }
@@ -245,9 +246,11 @@ defineReplace(depends_winrtbridge) {
 
 defineReplace(depends_tp3log) {
     INCLUDEPATH += $$EPT_THIRDPARTY_DIR/tp3log
-    LIBS += -L$$EPT_ROOT_OUT_DIR/thirdparty/tp3log/tp3log/lib -ltp3log
+    LIBS += -L$$EPT_ROOT_OUT_DIR/thirdparty/tp3log/tp3log/lib
+    android:LIBS += -ltp3log_$${ANDROID_TARGET_ARCH}
+    else:LIBS += -ltp3log
     tp3LogDLL {
-        android:ANDROID_EXTRA_LIBS += $$EPT_ROOT_OUT_DIR/thirdparty/tp3log/tp3log/lib/libtp3log.so
+        android:ANDROID_EXTRA_LIBS += $$EPT_ROOT_OUT_DIR/thirdparty/tp3log/tp3log/lib/libtp3log_$${ANDROID_TARGET_ARCH}.so
         win32:DLLS += $$EPT_ROOT_OUT_DIR/thirdparty/tp3log/tp3log/lib/tp3log.dll
     }
 

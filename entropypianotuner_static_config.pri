@@ -22,7 +22,7 @@ else {
 }
 
 # add install rules
-winrt|winphone: EPT_CONFIG += no_install
+winrt|winphone|android: EPT_CONFIG += no_install
 else: EPT_CONFIG += install
 
 

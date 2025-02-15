@@ -32,7 +32,7 @@ import android.provider.MediaStore;
 import android.app.ActivityManager;
 import android.app.ActivityManager.MemoryInfo;
 
-import org.qtproject.qt5.android.bindings.QtActivity;
+import org.qtproject.qt.android.bindings.QtActivity;
 
 /**
  * Custom activity

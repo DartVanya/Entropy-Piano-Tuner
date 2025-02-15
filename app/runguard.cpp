@@ -27,6 +27,8 @@
 
 #include "core/prerequisites.h"
 
+#if QT_CONFIG(sharedmemory)
+
 //-----------------------------------------------------------------------------
 //                              Constructor
 //-----------------------------------------------------------------------------
@@ -147,3 +149,5 @@ void RunGuard::release()
     if (sharedMem.isAttached()) sharedMem.detach();
     memLock.release();
 }
+
+#endif

@@ -24,9 +24,6 @@
 #error This file may only be included on Android
 #endif
 
-#include <QAndroidJniObject>
-#include <QAndroidJniEnvironment>
-
 void callAndroidVoidTunerApplicationFunction(const char *functionName);
 long int callAndroidLongIntTunerApplicationFunction(const char *functionName);
 

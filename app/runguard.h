@@ -41,6 +41,8 @@
 /// given key. The access to this memory is mutexted by a QSystemSemaphore.
 ///////////////////////////////////////////////////////////////////////////////
 
+#if QT_CONFIG(sharedmemory)
+
 class RunGuard
 {
 public:
@@ -61,5 +63,7 @@ private:
     QSharedMemory sharedMem;    ///< Shared memory labelled by a given key
     QSystemSemaphore memLock;   ///< Lock used when shared memory is accessed
 };
+
+#endif
 
 #endif  // RUN_GUARD
