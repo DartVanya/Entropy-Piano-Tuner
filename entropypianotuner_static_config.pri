@@ -49,6 +49,7 @@ win32:contains(EPT_CONFIG, shared_core) {
     CONFIG += tp3LogDLL
     DEFINES += TP3LOG_DLL
 }
+win32-msvc*:QMAKE_CXXFLAGS += /Zc:preprocessor
 
 # qwt
 contains(EPT_CONFIG, static_deps):EPT_THIRDPARTY_CONFIG += static_qwt
