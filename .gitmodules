@@ -12,4 +12,4 @@
 	url = https://gitlab.com/tp3/tp3log.git
 [submodule "thirdparty/qtmidi"]
 	path = thirdparty/qtmidi
-	url = https://gitlab.com/tp3/qtmidi
+	url = https://gitlab.com/tp3/qtmidi.git

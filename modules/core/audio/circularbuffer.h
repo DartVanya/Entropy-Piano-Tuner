@@ -184,7 +184,7 @@ std::vector<data_type> CircularBuffer<data_type>::getOrderedData() const
 template <class data_type>
 std::vector<data_type> CircularBuffer<data_type>::readData(size_t n)
 {
-    std::vector<data_type> data_out(std::move(getOrderedData()));
+    std::vector<data_type> data_out(getOrderedData());
     if (data_out.size() > n) data_out.resize(n);
 
     EptAssert(mCurrentSize >= data_out.size(), "Do not read more data than existent.");
@@ -212,7 +212,7 @@ template <class data_type>
 void CircularBuffer<data_type>::resize(std::size_t maximum_size)
 {
     // we have to temporarily store the old data and rewrite at at position 0
-    std::vector<data_type> old_data(std::move(getOrderedData()));
+    std::vector<data_type> old_data(getOrderedData());
     mMaximumSize = maximum_size;
     // new current size is size of old data, or smaller)
     mCurrentSize = std::min(old_data.size(), maximum_size);

@@ -110,7 +110,7 @@ void PianoFileIOXml::write(QIODevice *device, const Piano &piano) const {
         writer.writeAttribute("current", currentAlgorithm);
     }
 
-    for (const SingleAlgorithmParametersPtr ad : parameters) {
+    for (const SingleAlgorithmParametersPtr &ad : parameters) {
         writer.writeStartElement("algorithm");
 
         writer.writeAttribute("name", ad->getAlgorithmName());

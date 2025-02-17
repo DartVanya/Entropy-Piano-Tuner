@@ -63,9 +63,6 @@ win|linux:!android {
     qtCompileTest(qwt6-qt5_exists) {
         EPT_THIRDPARTY_CONFIG+=system_qwt
     }
-    !qtCompileTest(qtmidi_exists) {
-        error(QtMidi not found)
-    }
 
     packagesExist(qwt):    EPT_THIRDPARTY_CONFIG+=system_qwt
     packagesExist(fftw3):  EPT_THIRDPARTY_CONFIG+=system_fftw3

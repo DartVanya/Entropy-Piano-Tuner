@@ -67,7 +67,7 @@
 #include "displaysize.h"
 
 #ifdef QT_QWT_LIB
-#include "dialogs/plotsdialog/plots
+#include "dialogs/plotsdialog/plots"
 #endif
 
 const int MAX_NUMBER_OF_INVALID_RECORDINGS_BEFORE_USER_INFORMATION = 3;

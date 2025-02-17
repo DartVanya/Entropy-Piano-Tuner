@@ -78,11 +78,6 @@ void TunerApplication::setApplicationExitState(int errorcode) {
 void TunerApplication::init() {
     QIcon::setThemeSearchPaths(QIcon::themeSearchPaths() << ":/media" << ":/media/icons");
 
-    if (primaryScreen()->devicePixelRatio() >= 1.5) {
-        setAttribute(Qt::AA_UseHighDpiPixmaps);
-    }
-
-
     // open the main window with the startup file
     mMainWindow.reset(new MainWindow());
 #ifdef Q_OS_MOBILE
@@ -109,7 +104,7 @@ void TunerApplication::init() {
     }
 
     // writeout args to log
-    LogI("Number of arguments: %d", arguments().size());
+    LogI("Number of arguments: %lld", arguments().size());
     LogI("Program arguments: %s", arguments().join(", ").toStdString().c_str());
 
     // create core

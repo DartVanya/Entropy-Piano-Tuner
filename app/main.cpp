@@ -106,12 +106,16 @@ int main(int argc, char *argv[])
     QLocale::setDefault(QLocale(localeName));
 
     // Qt translation
-    qtTranslator.load(QLocale(), "qt", "_", ":/languages/translations");
+    if (!qtTranslator.load(QLocale(), "qt", "_", ":/languages/translations")) {
+        LogW("Failed to load Qt translations.");
+    }
     a.installTranslator(&qtTranslator);
 
     // application translation
     QTranslator myappTranslator;
-    myappTranslator.load(QLocale(), "piano_tuner", "_", ":/languages/translations");
+    if (!myappTranslator.load(QLocale(), "piano_tuner", "_", ":/languages/translations")) {
+        LogW("Failed to load piano tuner translations.");
+    }
     a.installTranslator(&myappTranslator);
 
     // =========================================================================================
