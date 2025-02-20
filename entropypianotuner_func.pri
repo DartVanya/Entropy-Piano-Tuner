@@ -105,7 +105,7 @@ defineReplace(depends_fftw3) {
         } else {
             include($$EPT_THIRDPARTY_DIR/fftw3/fftw3_export.pri)
             INCLUDEPATH += $$FFTW_INCLUDE_PATHS
-            LIBS += $$FFTW_LIB_PATH $$FFTW_EXTERN_LIBS
+            LIBS += $$FFTW_LIB_PATH $$FFTW_EXTERN_LIBS $$FFTW_DEST_PATH
         }
 
         # copy dlls or shared library
@@ -269,6 +269,7 @@ defineReplace(depends_qtmidi) {
     export(INCLUDEPATH)
     export(ANDROID_EXTRA_LIBS)
     export(DLLS)
+    export(JAVACLASSPATH)
 
     return(true)
 }
