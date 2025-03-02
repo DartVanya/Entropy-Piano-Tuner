@@ -1,8 +1,9 @@
-
 DISTFILES += \
-    $$EPT_ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml \
-    $$EPT_ANDROID_PACKAGE_SOURCE_DIR/src/org/uniwue/tp3/TunerApplication.java \
-    $$PWD/gradle.properties
+    $$PWD/AndroidManifest.xml \
+    $$PWD/src/org/uniwue/tp3/TunerApplication.java \
+    $$PWD/build.gradle \
+    $$PWD/gradle.properties \
+    $$PWD/libs/.gitignore
 
 HEADERS += \
     $$PWD/androidplatformtools.h \
@@ -13,4 +14,4 @@ SOURCES += \
     $$PWD/androidnativewrapper.cpp
 
 # location of the android package files
-ANDROID_PACKAGE_SOURCE_DIR = $$EPT_ANDROID_PACKAGE_SOURCE_DIR
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD

@@ -270,6 +270,7 @@ defineReplace(depends_qtmidi) {
     export(ANDROID_EXTRA_LIBS)
     export(DLLS)
     export(JAVACLASSPATH)
+    export(QMAKE_POST_LINK)
 
     return(true)
 }

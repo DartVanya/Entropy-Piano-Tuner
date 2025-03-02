@@ -27,7 +27,6 @@
 
 #include "implementations/platformtools.h"
 
-
 // connect java_openFile method
 // on android this allows the activity to load a file
 // this is necessary to support loading a file while the application is already running
