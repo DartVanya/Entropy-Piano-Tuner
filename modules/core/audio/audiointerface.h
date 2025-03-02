@@ -29,14 +29,6 @@
 class EPT_EXTERN AudioInterface
 {
 public:
-    /// Floating point data type for a single PCM Value. The PCM values are
-    /// assumed to be in [-1,1].
-    typedef double PCMDataType;
-
-    /// Type definition of a PCM packet (vector of PCM values).
-    typedef std::vector<PCMDataType> PacketType;
-
-public:
     virtual void init() = 0;            ///< Inizialize the audio device.
     virtual void exit() = 0;            ///< Destroy the audio device.
 
@@ -51,6 +43,7 @@ public:
     virtual const std::string getDeviceName() const = 0;    // get the device name
     virtual int getSamplingRate() const = 0;                // get actual sampling rate
     virtual int getChannelCount() const = 0;                // get number of channels
+    virtual PCMDevice::PcmDataType getDataType() const = 0; // get the data type of a sample
 
     virtual PCMDevice *getDevice() const = 0;
     virtual void setDevice(PCMDevice *device) = 0;

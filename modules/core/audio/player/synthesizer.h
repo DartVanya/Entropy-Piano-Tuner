@@ -140,9 +140,13 @@ public:
 
 
     virtual int64_t read(char *data, int64_t max_bytes) override final;
-    bool generateAudioSignal(DataType *outputPacket, const int64_t packet_size);
-    virtual int64_t write(const char *, int64_t) override final {return 0;}
+    virtual int64_t write(const char *, int64_t) override final { return 0; }
+
 private:
+    // Gereates an audio signal. Returns the size of the actual packet in bytes. packet_size is the sample_size.
+    template<typename DataType>
+    int64_t generateAudioSignal(char *data, const int64_t max_bytes);
+
     using Waveform = WaveformGenerator::Waveform;
 
     WaveformGenerator mWaveformGenerator;

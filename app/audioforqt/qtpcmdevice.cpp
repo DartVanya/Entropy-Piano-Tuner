@@ -45,7 +45,7 @@ qint64 QtPCMDevice::bytesAvailable() const {
     // This will force that "readData" is called which returns the actual available data.
     if (mDevice) {
         // Returning ~1s of data.
-        return mDevice->getSampleRate() * mDevice->getChannels() * sizeof(PCMDevice::DataType);
+        return mDevice->getSampleRate() * mDevice->getChannels() * mDevice->getSampleSize();
     }
     return 1000;  // At least some data.
 }

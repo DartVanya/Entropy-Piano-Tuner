@@ -52,3 +52,44 @@ int PCMDevice::getChannels() const {
 
     return 1;
 }
+
+PCMDevice::PcmDataType PCMDevice::getDataType() const
+{
+    if (mAudioInterface) {
+        return mAudioInterface->getDataType();
+    }
+
+    return PcmDataType::UNKNOWN_DATA_TYPE;
+}
+
+int PCMDevice::getSampleSize() const
+{
+    switch (getDataType()) {
+    case PcmDataType::FLOAT:
+        return sizeof(float);
+    case PcmDataType::UINT8:
+        return sizeof(uint8_t);
+    case PcmDataType::INT16:
+        return sizeof(int16_t);
+    case PcmDataType::INT32:
+        return sizeof(int32_t);
+    case PcmDataType::UNKNOWN_DATA_TYPE:
+        return 0;
+    }
+}
+
+double PCMDevice::maxSampleValue() const
+{
+    switch (getDataType()) {
+    case PcmDataType::FLOAT:
+        return 1;
+    case PcmDataType::UINT8:
+        return std::numeric_limits<uint8_t>::max();
+    case PcmDataType::INT16:
+        return std::numeric_limits<int16_t>::max();
+    case PcmDataType::INT32:
+        return std::numeric_limits<int32_t>::max();
+    case PcmDataType::UNKNOWN_DATA_TYPE:
+        return 0;
+    }
+}

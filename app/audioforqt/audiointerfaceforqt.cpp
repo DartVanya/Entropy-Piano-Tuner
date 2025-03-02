@@ -59,7 +59,8 @@ void AudioInterfaceForQt::reinitialize(int samplingRate, int channelCount, QAudi
             return;
         }
 
-        if (mFormat.sampleFormat() != QAudioFormat::Float) {
+        if (mFormat.sampleFormat() != QAudioFormat::Float
+            || mFormat.sampleFormat() != QAudioFormat::Int16) {
             LogW("Sample format not supported");
             return;
         }
@@ -145,6 +146,23 @@ int AudioInterfaceForQt::getSamplingRate() const
 int AudioInterfaceForQt::getChannelCount() const
 {
     return mFormat.channelCount();
+}
+
+PCMDevice::PcmDataType AudioInterfaceForQt::getDataType() const
+{
+    switch (mFormat.sampleFormat()) {
+    case QAudioFormat::UInt8:
+        return PCMDevice::PcmDataType::UINT8;
+    case QAudioFormat::Int16:
+        return PCMDevice::PcmDataType::INT16;
+    case QAudioFormat::Int32:
+        return PCMDevice::PcmDataType::INT32;
+    case QAudioFormat::Float:
+        return PCMDevice::PcmDataType::FLOAT;
+    case QAudioFormat::Unknown:
+    case QAudioFormat::NSampleFormats:
+        return PCMDevice::UNKNOWN_DATA_TYPE;
+    }
 }
 
 PCMDevice *AudioInterfaceForQt::getDevice() const

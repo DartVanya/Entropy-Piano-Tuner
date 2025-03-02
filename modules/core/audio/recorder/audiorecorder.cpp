@@ -30,6 +30,7 @@
 //-----------------------------------------------------------------------------
 //                            Various constants
 //-----------------------------------------------------------------------------
+using DataType = float;
 
 /// Capacity of the local circular audio buffer in seconds
 const int    AudioRecorder::BUFFER_SIZE_IN_SECONDS = 2;
@@ -87,23 +88,54 @@ void AudioRecorder::open(AudioInterface *audioInterface) {
     mCounterThreshold =   getSampleRate() * UPDATE_IN_MILLISECONDS / 1000;
 }
 
-int64_t AudioRecorder::write(const char *data, int64_t max_bytes) {
-    // convert data from DataType to PCMDataType
-    PacketType packet(max_bytes / sizeof(DataType));
-    const DataType *d = reinterpret_cast<const DataType *>(data);
-    PCMDataType *p = packet.data();
-    const PCMDataType *const pend = packet.data() + packet.size();
+template<typename DataType>
+AudioRecorder::PacketType convertPacket(const char *data, int64_t max_bytes)
+{
+    const int sampleSize = sizeof(DataType);
+    AudioRecorder::PacketType packet(max_bytes / sampleSize);
 
+    const DataType *d = reinterpret_cast<const DataType *>(data);
+    AudioRecorder::PCMDataType *p = packet.data();
+    const AudioRecorder::PCMDataType *const pend = packet.data() + packet.size();
     while (p != pend) {
         *p = *d;
-        //*p /= std::numeric_limits<DataType>::max();
+        if (!std::is_floating_point<DataType>::value) {
+            // Convert to either [0;1] or [-1;1]
+            *p /= std::numeric_limits<DataType>::max();
+        }
+        if (std::is_unsigned<DataType>::value) {
+            // Convert [0;1] to [-1;1]
+            *p = *p * 2 - 1;
+        }
         ++p;
         ++d;
     }
 
+    return packet;
+}
+
+int64_t AudioRecorder::write(const char *data, int64_t max_bytes) {
+    PacketType packet;
+    switch (getDataType()) {
+    case PCMDevice::UINT8:
+        packet = convertPacket<uint8_t>(data, max_bytes);
+        break;
+    case PCMDevice::INT16:
+        packet = convertPacket<int16_t>(data, max_bytes);
+        break;
+    case PCMDevice::INT32:
+        packet = convertPacket<int32_t>(data, max_bytes);
+        break;
+    case PCMDevice::FLOAT:
+        packet = convertPacket<float>(data, max_bytes);
+        break;
+    case PCMDevice::UNKNOWN_DATA_TYPE:
+        break;
+    }
+
     pushRawData(packet);
 
-    return packet.size() * sizeof(DataType);
+    return packet.size() * getSampleSize();
 }
 
 //---------------------------------------------l--------------------------------

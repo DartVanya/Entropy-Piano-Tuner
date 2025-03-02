@@ -324,10 +324,30 @@ void Synthesizer::updateIntensity()
 
 int64_t Synthesizer::read(char *data, int64_t max_bytes)
 {
-    const int64_t packet_size = (max_bytes / sizeof(DataType)) / 2;
-    if (generateAudioSignal(reinterpret_cast<DataType*>(data), packet_size)) {
-        return packet_size * sizeof(DataType);
+    int64_t bytes_written = -1;
+
+    switch (getDataType()) {
+    case PcmDataType::FLOAT:
+        bytes_written = generateAudioSignal<float>(data, max_bytes);
+        break;
+    case PcmDataType::UINT8:
+        bytes_written = generateAudioSignal<uint8_t>(data, max_bytes);
+        break;
+    case PcmDataType::INT16:
+        bytes_written = generateAudioSignal<int16_t>(data, max_bytes);
+        break;
+    case PcmDataType::INT32:
+        bytes_written = generateAudioSignal<int32_t>(data, max_bytes);
+        break;
+    case PcmDataType::UNKNOWN_DATA_TYPE:
+        LogW("Unknown data type");
+        break;
     }
+
+    if (bytes_written >= 0) {
+        return bytes_written;
+    }
+
     std::fill(data, data + max_bytes, 0);
     return max_bytes;
 }
@@ -339,20 +359,26 @@ int64_t Synthesizer::read(char *data, int64_t max_bytes)
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Generate waveform.
 /// \param outputBuffer The buffer where to write
-/// \return True on success, false if the player should pause (no notes)
+/// \return Number of bytes written on success, -1 if the player should pause (no notes, or if there is an error)
 ///
 /// This is the heart of the synthesizer which composes the pre-calculated
 /// waveforms.
 ///////////////////////////////////////////////////////////////////////////////
 
-bool Synthesizer::generateAudioSignal (DataType *outputBuffer, const int64_t packet_size)
+template<typename DataType>
+int64_t Synthesizer::generateAudioSignal(char *data, const int64_t max_bytes)
 {
     // update intensity and played tones
     updateIntensity();
 
     if (mIntensity == 0 ) {
-        return false;
+        std::fill(data, data + max_bytes, 0);
+        return max_bytes;
     }
+
+    DataType *outputBuffer = reinterpret_cast<DataType *>(data);
+    const int64_t packet_size = max_bytes / sizeof(DataType);
+    const int64_t samples = packet_size / mChannels;
 
     const int sampleRate = mSampleRate;
     const int channels = mChannels;
@@ -360,10 +386,11 @@ bool Synthesizer::generateAudioSignal (DataType *outputBuffer, const int64_t pac
     int64_t clock_timeout = 40*sampleRate; // one minute timeout
     int hammerwavesize = static_cast<int>(mHammerWaveLeft.size());
 
-    if (channels<=0 or channels>2) return false;
+    if (channels <= 0 or channels > 2) {
+        return -1;
+    }
 
-
-    for (int bufferIndex = channels - 1; bufferIndex < packet_size; bufferIndex += channels) {
+    for (int64_t sample = 0; sample < samples; ++sample) {
         // pcm data
         double left = 0, right = 0;
 
@@ -444,21 +471,29 @@ bool Synthesizer::generateAudioSignal (DataType *outputBuffer, const int64_t pac
 
         mPlayingMutex.unlock();
 
+        if (std::is_unsigned<DataType>::value) {
+            // Convert to [0; 1]
+            left = (left + 1) / 2;
+            right = (right + 1) / 2;
+        }
+        if (!std::is_floating_point<DataType>::value) {
+            left *= std::numeric_limits<DataType>::max();
+            right *= std::numeric_limits<DataType>::max();
+        }
+
         // write data to buffer
-        if (channels==1)
+        const int64_t bufferIndex = sample * 2;
+        if (channels == 1) {
+            outputBuffer[bufferIndex] = static_cast<DataType>((left + right) / 2);
+        } else // if stereo
         {
-            outputBuffer[bufferIndex] = static_cast<DataType>((left+right)/2);
+            outputBuffer[bufferIndex] = static_cast<DataType>(left);
+            outputBuffer[bufferIndex + 1] = static_cast<DataType>(right);
         }
-        else // if stereo
-        {
-            outputBuffer[bufferIndex - 1] = static_cast<DataType>(left);
-            outputBuffer[bufferIndex] = static_cast<DataType>(right);
-        }
-
     }
-    return true;
-}
 
+    return samples * sizeof(DataType) * channels;
+}
 
 //-----------------------------------------------------------------------------
 // 	                      Get tone pointer (private)

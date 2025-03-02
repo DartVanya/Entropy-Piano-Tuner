@@ -46,6 +46,7 @@ public:
     virtual const std::string getDeviceName() const override final;
     virtual int getSamplingRate() const override final;
     virtual int getChannelCount() const override final;
+    virtual PCMDevice::PcmDataType getDataType() const override final;
 
     virtual PCMDevice *getDevice() const override final;
     virtual void setDevice(PCMDevice *device) override final;

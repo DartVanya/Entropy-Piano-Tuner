@@ -29,7 +29,13 @@ class AudioInterface;
 class EPT_EXTERN PCMDevice
 {
 public:
-    typedef float DataType;
+    enum PcmDataType {
+        UNKNOWN_DATA_TYPE,
+        UINT8,
+        INT16,
+        INT32,
+        FLOAT,
+    };
 
     virtual void open(AudioInterface *audioInterface);
     virtual void close();
@@ -39,6 +45,12 @@ public:
     bool isOpen() const {return mAudioInterface != nullptr;}
     int getSampleRate() const;
     int getChannels() const;
+    PcmDataType getDataType() const;
+    int getSampleSize() const;
+    // Returns the maximum value of a sample depending on the data type.
+    // For float this is 1, for integer types this is the maximum int.
+    double maxSampleValue() const;
+
 protected:
     AudioInterface *mAudioInterface = nullptr;
 };
