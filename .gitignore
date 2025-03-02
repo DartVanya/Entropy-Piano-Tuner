@@ -23,6 +23,7 @@ config.tests/*/Makefile
 
 # android studio files
 *.iml
+*.idea
 
 # keystores and secret keys
 *.keystore
