@@ -92,7 +92,7 @@
     <message>
         <location filename="../app/dialogs/algorithmdialog/algorithmdialog.cpp" line="222"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Версия:</translation>
     </message>
     <message>
         <location filename="../app/dialogs/algorithmdialog/algorithmdialog.cpp" line="223"/>
@@ -122,7 +122,7 @@
     <message>
         <location filename="../app/dialogs/algorithmdialog/algorithmdialog.cpp" line="400"/>
         <source>Reset the parameter to its default value</source>
-        <translation type="unfinished"></translation>
+        <translation>Сбросить параметр до значения по умолчанию</translation>
     </message>
 </context>
 <context>
@@ -200,7 +200,7 @@
     <message>
         <location filename="../app/mainwindow/calculationprogressgroup.cpp" line="164"/>
         <source>The calculation finished successfully! Now you can switch to the tuning mode and tune your piano.</source>
-        <translation>Расчет успешно завершен!  Теперь вы можете перейти в режим настройки и настроить Ваше фортепиано. </translation>
+        <translation>Расчет успешно завершен! Теперь вы можете перейти в режим настройки и настроить Ваше фортепиано.</translation>
     </message>
     <message>
         <location filename="../app/mainwindow/calculationprogressgroup.cpp" line="172"/>
@@ -267,12 +267,12 @@
     <message>
         <location filename="../app/dialogs/donotshowagainmessagebox.cpp" line="53"/>
         <source>Save changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить изменения</translation>
     </message>
     <message>
         <location filename="../app/dialogs/donotshowagainmessagebox.cpp" line="58"/>
         <source>Information</source>
-        <translation type="unfinished">Информация</translation>
+        <translation>Информация</translation>
     </message>
     <message>
         <location filename="../app/dialogs/donotshowagainmessagebox.cpp" line="63"/>
@@ -287,12 +287,12 @@
     <message>
         <location filename="../app/dialogs/donotshowagainmessagebox.cpp" line="84"/>
         <source>Do you want to save your current changes? You can save at any time using the tool button or the action from the menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы хотите сохранить текущие изменения? Вы можете сохранить их в любое время, используя кнопку на панели инструментов или действие из меню.</translation>
     </message>
     <message>
         <location filename="../app/dialogs/donotshowagainmessagebox.cpp" line="87"/>
         <source>If the recording of a key fails you can force its recording by clicking the desired key twice. A forced key will be highlighted as a dark red color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Если записать клавишу не удалось, вы можете записать её принудительно, щёлкнув по ней дважды. Принудительно записываемая клавиша будет выделена тёмно-красным цветом.</translation>
     </message>
     <message>
         <source>Do you really want to reset all pitch markers? This can not be undone!</source>
@@ -310,7 +310,7 @@
     <message>
         <location filename="../app/dialogs/donotshowagainmessagebox.cpp" line="78"/>
         <source>The tuning curve has not been calculated. Switch the mode and calculate it.</source>
-        <translation> Рассчитаная кривая не была  вычислена. Переключите режим и вычислите её.</translation>
+        <translation>Рассчитаная кривая не была вычислена. Переключите режим и вычислите её.</translation>
     </message>
     <message>
         <location filename="../app/dialogs/donotshowagainmessagebox.cpp" line="81"/>
@@ -353,7 +353,7 @@
     <message>
         <location filename="../app/dialogs/editpianosheet/editpianosheetdialog.ui" line="106"/>
         <source>A</source>
-        <translation>A</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../app/dialogs/editpianosheet/editpianosheetdialog.ui" line="128"/>
@@ -396,7 +396,7 @@
     <message>
         <location filename="../app/dialogs/editpianosheet/editpianosheetdialog.ui" line="239"/>
         <source>Key number of A</source>
-        <translation>Количество клавиш А</translation>
+        <translation>Номер клавиши А</translation>
     </message>
     <message>
         <location filename="../app/dialogs/editpianosheet/editpianosheetdialog.ui" line="273"/>
@@ -416,7 +416,7 @@
     <message>
         <location filename="../app/dialogs/editpianosheet/editpianosheetdialog.ui" line="300"/>
         <source>Keys on bass bridge</source>
-        <translation type="unfinished"></translation>
+        <translation>Клавиш в басовом регистре</translation>
     </message>
 </context>
 <context>
@@ -471,27 +471,27 @@
     <message>
         <location filename="../app/dialogs/log/logviewer.ui" line="63"/>
         <source>Current log</source>
-        <translation type="unfinished"></translation>
+        <translation>Текущий журнал</translation>
     </message>
     <message>
         <location filename="../app/dialogs/log/logviewer.ui" line="68"/>
         <source>Previous log</source>
-        <translation type="unfinished"></translation>
+        <translation>Предыдущий журнал</translation>
     </message>
     <message>
         <location filename="../app/dialogs/log/logviewer.ui" line="76"/>
         <source>Copy the contents of the log to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation>Скопировать содержимое журнала в буфер обмена.</translation>
     </message>
     <message>
         <location filename="../app/dialogs/log/logviewer.ui" line="79"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../app/dialogs/log/logviewer.cpp" line="93"/>
         <source>Log file does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл журнала не существует.</translation>
     </message>
 </context>
 <context>
@@ -536,7 +536,7 @@
     <message>
         <location filename="../app/mainwindow/mainwindow.ui" line="133"/>
         <source>&amp;Save</source>
-        <translation>&amp;_Сохранить</translation>
+        <translation>&amp;Сохранить</translation>
     </message>
     <message>
         <location filename="../app/mainwindow/mainwindow.ui" line="138"/>
@@ -744,7 +744,7 @@
     <message>
         <location filename="../app/mainwindow/mainwindow.cpp" line="492"/>
         <source>Signal analysis failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось проанализировать сигнал</translation>
     </message>
     <message>
         <location filename="../app/mainwindow/mainwindow.cpp" line="524"/>
@@ -890,7 +890,7 @@
     <message>
         <location filename="../app/dialogs/plotsdialog/plotsdialog.cpp" line="109"/>
         <source>Go next</source>
-        <translation>Перейти к следующей </translation>
+        <translation>Перейти к следующей</translation>
     </message>
     <message>
         <location filename="../app/dialogs/plotsdialog/plotsdialog.cpp" line="110"/>
@@ -954,7 +954,7 @@
     <message>
         <location filename="../app/mainwindow/progressdisplay.cpp" line="23"/>
         <source>Synthesizer</source>
-        <translation type="unfinished"></translation>
+        <translation>Синтезатор</translation>
     </message>
 </context>
 <context>
@@ -1083,7 +1083,7 @@
     <message>
         <location filename="../app/mainwindow/tuningindicatorgroupbox.cpp" line="27"/>
         <source>Tuning</source>
-        <translation type="unfinished">Настройка</translation>
+        <translation>Настройка</translation>
     </message>
 </context>
 <context>
@@ -1091,7 +1091,7 @@
     <message>
         <location filename="../app/drawers/tuningindicatorview.cpp" line="46"/>
         <source>This is the tuning indicator. Touch this field to toggle between spectral and stroboscopic mode. In the spectral mode you should bring the peak to the center of the window for optimal tuning. When tuning several strings of unisons at once, several peaks might appear and all of them should be tuned to match the center. In the stroboscopic mode several stripes of drifiting rainbows are shown. The stripes represent the partials. Optimal tuning of single strings is obtained when the rainbows come to a halt.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Переведи нахуй плиз</translation>
     </message>
 </context>
 <context>
@@ -1109,7 +1109,7 @@
     <message>
         <location filename="../app/mainwindow/volumecontrolgroupbox.cpp" line="131"/>
         <source>Click this button to mute the speaker or headphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Нажмите эту кнопку, чтобы заглушить динамик или наушники.</translation>
     </message>
     <message>
         <location filename="../app/mainwindow/volumecontrolgroupbox.cpp" line="142"/>
@@ -1213,21 +1213,21 @@
     <message>
         <location filename="../app/options/audio/optionspageaudioinputoutputpage.cpp" line="44"/>
         <source>Loading input devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузка входящих устройств</translation>
     </message>
     <message>
         <location filename="../app/options/audio/optionspageaudioinputoutputpage.cpp" line="47"/>
         <source>Loading output devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузка исходящих устройств</translation>
     </message>
     <message>
         <location filename="../app/options/audio/optionspageaudioinputoutputpage.cpp" line="62"/>
         <source>Device</source>
-        <translation>устройство</translation>
+        <translation>Устройство</translation>
     </message>
     <message>
         <location filename="../app/options/audio/optionspageaudioinputoutputpage.cpp" line="68"/>
-        <source>Sampling rate </source>
+        <source>Sampling rate</source>
         <translation>Частота дискретизации</translation>
     </message>
     <message>
@@ -1238,12 +1238,12 @@
     <message>
         <location filename="../app/options/audio/optionspageaudioinputoutputpage.cpp" line="87"/>
         <source>Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Каналы</translation>
     </message>
     <message>
         <location filename="../app/options/audio/optionspageaudioinputoutputpage.cpp" line="99"/>
         <source>Buffer size</source>
-        <translation type="unfinished"></translation>
+        <translation>Размер буфера</translation>
     </message>
     <message>
         <location filename="../app/options/audio/optionspageaudioinputoutputpage.cpp" line="242"/>
@@ -1266,17 +1266,17 @@
     <message>
         <location filename="../app/options/audio/optionspageaudiomidipage.cpp" line="40"/>
         <source>Auto connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Авто-подключение</translation>
     </message>
     <message>
         <location filename="../app/options/audio/optionspageaudiomidipage.cpp" line="46"/>
         <source>Test input</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверка входа</translation>
     </message>
     <message>
         <location filename="../app/options/audio/optionspageaudiomidipage.cpp" line="95"/>
         <source>Disabled</source>
-        <translation type="unfinished">Отключен</translation>
+        <translation>Отключен</translation>
     </message>
 </context>
 <context>
@@ -1359,7 +1359,7 @@
     <message>
         <location filename="../app/options/environment/optionspageenvironmenttuningpage.cpp" line="51"/>
         <source>Stroboscopic tuning indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Стробоскопический индикатор настройки</translation>
     </message>
     <message>
         <location filename="../app/options/environment/optionspageenvironmenttuningpage.cpp" line="57"/>
