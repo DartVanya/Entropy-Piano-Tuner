@@ -37,7 +37,7 @@
             <!-- Background running -->
         </activity>
     </application>
-    <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="31"/>
+    <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="36"/>
     <supports-screens android:largeScreens="true" android:normalScreens="true" android:anyDensity="true" android:smallScreens="true"/>
     <!-- %%INSERT_FEATURES -->
     <!-- %%INSERT_PERMISSIONS -->

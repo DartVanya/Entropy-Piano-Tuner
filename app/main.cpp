@@ -53,6 +53,7 @@
 #include <QMessageBox>
 #include <QStandardPaths>
 #include <QDir>
+#include <QStyleHints>
 #include <qdebug.h>
 
 #include "core/system/serverinfo.h"
@@ -144,6 +145,13 @@ int main(int argc, char *argv[])
 
         // increase run count
         SettingsForQt::getSingleton().increaseApplicationRuns();
+
+#ifdef Q_OS_ANDROID
+        // QGuiApplication::styleHints()->setColorScheme(Qt::ColorScheme::Light);
+
+        // fix color palette on android
+        a.setPalette(a.style()->standardPalette());
+#endif
 
         a.playStartupSound();
 
