@@ -41,6 +41,7 @@
 class TuningIndicatorView : public StroboscopicViewAdapterForQt,
                             public TuningIndicatorDrawer
 {
+    Q_OBJECT
 public:
     TuningIndicatorView (QWidget *parent);
     virtual ~TuningIndicatorView() {}      ///< Empty virtual destructor.

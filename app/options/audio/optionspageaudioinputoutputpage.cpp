@@ -66,7 +66,7 @@ PageAudioInputOutput::PageAudioInputOutput(OptionsDialog *optionsDialog, QAudioD
 
     // sampling rate
     QPushButton *selectDefaultSamplingRateButton = new QPushButton(tr("Default"));
-    inputLayout->addWidget(new QLabel(tr("Sampling rate ")), 1, 0);
+    inputLayout->addWidget(new QLabel(tr("Sampling rate")), 1, 0);
     inputLayout->addWidget(mSamplingRates = new QComboBox, 1, 1);
     inputLayout->addWidget(selectDefaultSamplingRateButton, 1, 2);
 

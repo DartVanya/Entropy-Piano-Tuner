@@ -1226,7 +1226,7 @@
     </message>
     <message>
         <location filename="../app/options/audio/optionspageaudioinputoutputpage.cpp" line="68"/>
-        <source>Sampling rate </source>
+        <source>Sampling rate</source>
         <translation>Tasa de muestreo</translation>
     </message>
     <message>

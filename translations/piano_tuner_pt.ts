@@ -1010,7 +1010,7 @@
         <translation>Equipamento</translation>
     </message>
     <message>
-        <source>Sampling rate </source>
+        <source>Sampling rate</source>
         <translation>Taxa de amostragem</translation>
     </message>
     <message>
